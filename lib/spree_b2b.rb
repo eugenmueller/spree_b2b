@@ -1,0 +1,5 @@
+require 'spree_core'
+require 'spree_extension'
+require 'spree_auth_devise'
+require 'spree_b2b/engine'
+require 'spree_b2b/version'

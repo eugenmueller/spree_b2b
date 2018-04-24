@@ -1,0 +1,104 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= Spree.t(:company_information) %></h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div data-hook="admin_dealer_form_company">
+            <%= form.field_container :company, class: ['form-group'] do %>
+              <%= form.label :company, Spree.t(:company) %>
+              <%= form.text_field :company, class: 'form-control' %>
+              <%= form.error_message_on :company %>
+            <% end %>
+          </div>
+          <div data-hook="admin_dealer_form_resale_number">
+            <%= form.field_container :resale_number, class: ['form-group'] do %>
+              <%= form.label :resale_number, Spree.t(:resale_number) %>
+              <%= form.text_field :resale_number, class: 'form-control' %>
+              <%= form.error_message_on :resale_number %>
+            <% end %>
+          </div>
+          <div data-hook="admin_dealer_form_taxid">
+            <%= form.field_container :taxid, class: ['form-group'] do %>
+              <%= form.label :taxid, Spree.t(:taxid) %>
+              <%= form.text_field :taxid, class: 'form-control' %>
+              <%= form.error_message_on :taxid %>
+            <% end %>
+          </div>
+          <div data-hook="admin_dealer_form_phone">
+            <%= form.field_container :phone, class: ['form-group'] do %>
+              <%= form.label :phone, Spree.t(:phone) %>
+              <%= form.text_field :phone, class: 'form-control' %>
+              <%= form.error_message_on :phone %>
+            <% end %>
+          </div>
+          <div data-hook="admin_dealer_form_fax">
+            <%= form.field_container :fax, class: ['form-group'] do %>
+              <%= form.label :fax, Spree.t(:fax) %>
+              <%= form.text_field :fax, class: 'form-control' %>
+              <%= form.error_message_on :fax %>
+            <% end %>
+          </div>
+          <div data-hook="admin_dealer_form_web_address">
+            <%= form.field_container :web_address, class: ['form-group'] do %>
+              <%= form.label :web_address, Spree.t(:web_address) %>
+              <%= form.text_field :web_address, class: 'form-control' %>
+              <%= form.error_message_on :web_address %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div data-hook="admin_dealer_form_buyer_contact">
+            <%= form.field_container :buyer_contact, class: ['form-group'] do %>
+              <%= form.label :buyer_contact, Spree.t(:buyer_contact) %>
+              <%= form.text_field :buyer_contact, class: 'form-control' %>
+              <%= form.error_message_on :buyer_contact %>
+            <% end %>
+          </div>
+          <div data-hook="admin_dealer_form_manager_contact">
+            <%= form.field_container :manager_contact, class: ['form-group'] do %>
+              <%= form.label :manager_contact, Spree.t(:manager_contact) %>
+              <%= form.text_field :manager_contact, class: 'form-control' %>
+              <%= form.error_message_on :manager_contact %>
+            <% end %>
+          </div>
+          <div data-hook="admin_dealer_form_terms">
+            <%= form.field_container :terms, class: ['form-group'] do %>
+              <%= form.label :terms, Spree.t(:terms) %>
+              <%= form.select :terms, Spree::Dealer.term_options, {include_blank: Spree.t('match_choices.none')} , {class: 'select2'}  %>
+              <%= form.error_message_on :terms %>
+            <% end %>
+          </div>
+          <div data-hook="admin_dealer_form_notes">
+            <%= form.field_container :notes, class: ['form-group'] do %>
+              <%= form.label :notes, Spree.t(:notes) %>
+              <%= form.text_area :notes, class: 'form-control', rows: 9  %>
+              <%= form.error_message_on :notes %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= Spree.t(:user_details) %></h3>
+  </div>
+  <div class="panel-body">
+    <% if @spree_dealer.new_record? %>
+      <%= form.fields_for :user do |user_fields| %>
+        <%= render 'spree/shared/user_form', :f => user_fields %>
+      <% end %>
+    <% else %>
+      <b><%= Spree.t(:user) %>:</b>
+      <%= link_to @spree_dealer.user.email, admin_user_path(@spree_dealer.user) %>
+      <br/>
+      <%= link_to "view user", admin_user_path(@spree_dealer.user), class: "btn btn-primary btn-sm" %> /
+      <%= link_to "edit user", edit_admin_user_path(@spree_dealer.user),  class: "btn btn-primary btn-sm" %> /
+      <%= render "user_options" %>
+    <% end %>
+  </div>
+</div>
+
+<%= render "spree/shared/address_form", :form => form %>

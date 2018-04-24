@@ -1,0 +1,10 @@
+<% if spree_current_user && spree_current_user.has_spree_role?(:dealer) %>
+  <% if @product.try(:dealer_price) && 0 < @product.try(:dealer_price) %>
+    <p class="price text-center dealer-price">
+      <h4><%= t(:dealer_price) %></h4>
+      <span class="lead price selling" itemprop="price" content="<%=@product.dealer_price%>">
+        <%= number_to_currency(@product.dealer_price) %>
+      </span>
+    </p>
+  <% end %>
+<% end %>

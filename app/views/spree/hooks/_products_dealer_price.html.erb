@@ -1,0 +1,5 @@
+<% if spree_current_user && spree_current_user.has_spree_role?(:dealer) %>
+  <% if product.is_dealerable? %>
+    <div class="price dealer"><%= number_to_currency(product.dealer_price) %></div>
+  <% end %>
+<% end %>

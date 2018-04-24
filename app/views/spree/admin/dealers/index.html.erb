@@ -1,0 +1,77 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:dealers) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_dealer), new_object_url, icon: 'add', class: 'btn btn-success' %>
+<% end %>
+
+<% content_for :table_filter_title do %>
+  <%= Spree.t(:search) %>
+<% end %>
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_users_index_search">
+    <%= search_form_for [:admin, @search], url: spree.admin_dealers_url do |f| %>
+      <div class="form-group">
+        <%= f.label Spree.t(:company) %>
+        <%= f.text_field :company_cont, class: "form-control js-quick-search-target" %>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%#= f.label Spree.t(:contact_person) %>
+            <%#= f.text_field :contact_person_cont, :class => 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label Spree.t(:email) %>
+            <%= f.text_field :user_email_cont, :class => 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label Spree.t(:phone) %>
+        <%= f.text_field :phone_cont, :class => 'form-control' %>
+      </div>
+      <div data-hook="admin_users_index_search_buttons" class="form-actions">
+        <%= button Spree.t(:search), 'search' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+
+<table class="table" id="listing_spree_dealers" data-hook>
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :company, t('dealer') %></th>
+    <th><%= sort_link @search, :manager_contact, t('manager_contact') %></th>
+    <th><%= sort_link @search, :user_email, t('email') %></th>
+    <th><%= sort_link @search, :phone, t('phone') %></th>
+    <th><%= t('active') %></th>
+    <th>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @spree_dealers.each do |spree_dealer|%>
+      <tr id="<%= dom_id spree_dealer %>">
+        <%- locals = {:dealer => spree_dealer} %>
+        <td><%=link_to spree_dealer.company, object_url(spree_dealer) %></td>
+        <td><%= spree_dealer.manager_contact %></td>
+        <td><%= mail_to spree_dealer.email %></td>
+        <td><%= spree_dealer.phone %></td>
+        <td width="50px"><%= spree_dealer.active? ? 'yes' : 'no' %></td>
+        <td>
+          <%= link_to_edit spree_dealer %> &nbsp;
+          <%= link_to_delete spree_dealer %> &nbsp;
+          <%= render 'user_options', :spree_dealer => spree_dealer %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @spree_dealers %>

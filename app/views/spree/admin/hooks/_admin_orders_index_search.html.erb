@@ -1,0 +1,6 @@
+<div class='checkbox' id='show-dealer-option'>
+  <%= label_tag 'q_dealer_eq' do %>
+    <%= f.check_box :dealer_eq, {:checked => (params[:q][:dealer_eq] == '1')}, '1', '' %>
+    <%= Spree.t(:show_only_dealer_orders) %>
+  <% end %>
+</div>

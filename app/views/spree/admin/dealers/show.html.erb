@@ -1,0 +1,51 @@
+<h1><%= t("spree_dealer_account") %></h1>
+
+<div class="leftie">
+
+  <h5>Company:</h5>
+  <h3><%= @spree_dealer.company %></h3>
+
+
+  <h5>Phone:</h5>
+  <h3><%= @spree_dealer.phone %></h3>
+
+  <h5>Web_address:</h5>
+  <h3><%= @spree_dealer.web_address %></h3>
+
+  <h5>Comments:</h5>
+  <h3><%= simple_format @spree_dealer.comments %></h3>
+
+</div>
+
+<div class="rightie">
+
+  <div class="adr">
+    <h4><%= t("bill_address") %></h4>
+    <%= render 'spree/admin/shared/address', :address => @spree_dealer.bill_address %>
+  </div>
+  <div class="adr">
+    <h4><%= t("ship_address") %></h4>
+    <%= render 'spree/admin/shared/address', :address => @spree_dealer.ship_address %>
+  </div>
+
+  <div class="adr">
+    <h4><%= t("user_details") %></h4>
+    <p>
+      ID: <%= @spree_dealer.user.id %>
+      <br/>
+      Email: <%= @spree_dealer.user.email %>
+      <br/>
+      <%= link_to "view user", admin_user_path(@spree_dealer.user) %> /
+      <%= link_to "edit user", edit_admin_user_path(@spree_dealer.user) %> /
+      <%= render "user_options", :user => @spree_dealer.user %>
+    </p>
+  </div>
+
+</div>
+
+<hr/>
+
+<p>
+  <%= link_to_edit @spree_dealer %> <%= t('or') %>
+  <%= link_to t('back'), collection_url %>
+</p>

@@ -1,0 +1,10 @@
+<% spree_dealer ||= @spree_dealer %>
+<% if spree_dealer.active? %>
+  <%= link_to reject_admin_dealer_path(spree_dealer), class: "btn btn-warning btn-sm" do %>
+    <i class="glyphicon glyphicon-minus"></i>Deactivate
+  <% end %>
+<% else %>
+  <%= link_to approve_admin_dealer_path(spree_dealer), class: "btn btn-success btn-sm" do %>
+    <i class="glyphicon glyphicon-ok"></i>Approve
+  <% end %>
+<% end %>

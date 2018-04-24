@@ -1,0 +1,22 @@
+<div class="content-header page-header">
+  <div class="row">
+    <h1 class="col-xs-6">
+      <%= link_to Spree.t(:dealers), spree.admin_dealers_path  %>
+      <% if @spree_dealer.new_record? %>
+        / <%= Spree.t(:new_dealer) %>
+      <% else %>
+        / <%= @spree_dealer.company %>
+        / <%= @spree_dealer.user.email %>
+      <% end %>
+    </h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <%= form_for [:admin, @spree_dealer], :html => { :class => "spree-dealer-form" } do |f| %>
+      <%= render "spree/shared/error_messages", :target => @spree_dealer %>
+      <%= render "form", :form => f %>
+      <%= render "spree/admin/shared/new_resource_links" %>
+    <% end %>
+  </div>
+</div>

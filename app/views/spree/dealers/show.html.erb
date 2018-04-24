@@ -1,0 +1,52 @@
+<h1><%= t("spree_dealer_account") %></h1>
+
+<div class="leftie">
+
+  <h5>Company:</h5>
+  <h3><%= @spree_dealer.company %></h3>
+
+  <h5>Buyer Contact:</h5>
+  <h3><%= @spree_dealer.buyer_contact %></h3>
+
+  <h5>Manager Contact:</h5>
+  <h3><%= @spree_dealer.manager_contact %></h3>
+
+  <h5>Phone:</h5>
+  <h3><%= @spree_dealer.phone %></h3>
+
+  <h5>Fax:</h5>
+  <h3><%= @spree_dealer.fax %></h3>
+
+  <h5>Resaler Number:</h5>
+  <h3><%= @spree_dealer.resale_number %></h3>
+
+  <h5>TaxId:</h5>
+  <h3><%= @spree_dealer.taxid %></h3>
+
+  <h5>Web_address:</h5>
+  <h3><%= @spree_dealer.web_address %></h3>
+
+  <% if @spree_dealer.terms.present? %>
+    <h5>Terms:</h5>
+    <h3><%= @spree_dealer.terms %></h3>
+  <% end %>
+
+  <% if @spree_dealer.notes.present? %>
+    <h5>Comments:</h5>
+    <h3><%= simple_format @spree_dealer.notes %></h3>
+  <% end %>
+</div>
+
+<div class="rightie">
+
+  <div class="adr">
+    <h4><%= t("bill_address") %></h4>
+    <%= render 'spree/admin/shared/address', :address => @spree_dealer.bill_address %>
+  </div>
+  <div class="adr">
+    <h4><%= t("ship_address") %></h4>
+    <%= render 'spree/admin/shared/address', :address => @spree_dealer.ship_address %>
+  </div>
+</div>
+
+<hr/>

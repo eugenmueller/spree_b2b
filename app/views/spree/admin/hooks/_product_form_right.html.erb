@@ -1,0 +1,7 @@
+<div data-hook="admin_product_form_dealer_price">
+  <%= f.field_container :dealer_price, class: ['form-group'] do %>
+    <%= f.label :dealer_price, raw(Spree.t(:master_dealer_price) + content_tag(:span, ' *', class: "required")) %>
+    <%= f.text_field :dealer_price, value: number_to_currency(@product.dealer_price, unit: ''), class: 'form-control', disabled: (cannot? :update, @product.price)  %>
+    <%= f.error_message_on :dealer_price %>
+  <% end %>
+</div>
