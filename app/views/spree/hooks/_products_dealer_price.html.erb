@@ -1,5 +1,45 @@
-<% if spree_current_user && spree_current_user.has_spree_role?(:dealer) %>
-  <% if product.is_dealerable? %>
-    <div class="price dealer"><%= number_to_currency(product.dealer_price) %></div>
-  <% end %>
-<% end %>
+<% url = spree.product_path(product, taxon_id: taxon.try(:id)) %>
+<div id="product_<%= product.id %>" class="col-lg-4 col-md-6" data-hook="products_list_item" itemscope itemtype="https://schema.org/Product" >
+  <div class="product">
+    <div class='<%= promotion ? '' : 'image' %>'>
+      <%= link_to url, itemprop: "url" do %>
+        <% if promotion %>
+        <%= small_image(product, itemprop: "image") %><br/>
+        <% else%>
+        <%= product_image(product, itemprop: "image") %><br/>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="text">
+      <h3 class="h5">
+        <%= link_to url, itemprop: "url" do %>
+          <%= content_tag(:span, truncate(product.name, length: 50), class: 'info', itemprop: "name", title: product.name) %>
+        <% end %>
+      </h3>
+      <% if spree_current_user && spree_current_user.has_spree_role?(:dealer) && product.try(:dealer_price) && 0 < product.try(:dealer_price)  %>
+        <p class="price">
+          <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span class="price selling lead" itemprop="price" content="<%= product.dealer_price %>">
+              <%= number_to_currency(product.dealer_price) %>
+            </span>
+            <span itemprop="priceCurrency" content="<%= current_currency %>"></span>
+          </span>
+        </p>
+      <% else %>
+        <p class="price">
+          <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span class="price selling lead" itemprop="price" content="<%= product.price_in(current_currency).amount.to_d %>">
+              <%= display_price(product) %>
+            </span>
+            <span itemprop="priceCurrency" content="<%= current_currency %>"></span>
+          </span>
+        </p>
+      <% end %>
+    </div>
+    <div class="ribbon-holder">
+      <% if product.available_on > 30.days.ago %>
+        <div class="ribbon new"><%= Spree.t(:new) %></div>
+      <% end %>
+    </div>
+  </div>
+</div>
